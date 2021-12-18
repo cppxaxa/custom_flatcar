@@ -1,5 +1,4 @@
 # Clean up
-# rm -rf linux
 rm -rf mnt
 rm -f new-flatcar.iso
 umount -f /mnt/linux
