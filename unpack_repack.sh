@@ -17,13 +17,29 @@ cd mnt/linux/flatcar
 gzip -d cpio.gz
     # cpio.gz gets deleted automatically
 
-# # Extract CPIO
+# Extract CPIO
 echo [INFO] Extract CPIO
 mkdir cpio_out
 cd cpio_out
 cpio -id < ../cpio
 cd ..
 rm cpio
+
+# Extract SquashFs
+echo [INFO] Extract SquashFs
+cd cpio_out
+mkdir unsquash
+cd unsquash
+unsquashfs -f -d . ../usr.squashfs
+cd ..
+rm usr.squashfs
+cd ..
+
+# Pack SquashFs
+echo [INFO] Pack SquashFs
+cd cpio_out/unsquash
+mksquashfs . ../usr.squashfs
+cd ../..
 
 # Pack CPIO
 echo [INFO] Pack CPIO
